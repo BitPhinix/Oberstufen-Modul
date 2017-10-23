@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oberstufen-Modul</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="prefetch" href="abitur-selection.html">
+    <!-- CSS  -->
+    <link href="css/libs.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="content">
+    <div id="header">
+        <nav class="orange darken-2" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="#" class="brand-logo">Setup</a>
+                <ul id="nav-mobile" class="right">
+                    <li id="save" class="hand-cursor"><a class="fa fa-floppy-o fa-2x" download="Profile.omp"></a> </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="orange bg lighten-1"></div>
+    <div id="body" class="container table-container animsition">
+        <div class="card-panel">
+            <h1 class="header center orange-text cert-title"\>Zeugnis J1.1</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">Trage hier deine Noten ein. Deine Eingaben können später nicht mehr geändert werden!</h5>
+            </div>
+            <br>
+            <h5 class="center">Sprachlich-literarisch-künstlerisches Aufgabenfeld</h5>
+            <table>
+                <thead>
+                <tr>
+                    <th width="60%">Fach</th>
+                    <th>Punkte</th>
+                </tr>
+                </thead>
+                <tbody class="clickTable" table-name="AF1"/>
+            </table>
+            <h5 class="center">Gesellschaftswissenschaftliches Aufgabenfeld</h5>
+            <table>
+                <thead>
+                <tr>
+                    <th width="60%">Fach</th>
+                    <th>Punkte</th>
+                </tr>
+                </thead>
+                <tbody class="clickTable" table-name="AF2"/>
+            </table>
+            <h5 class="center">Mathematisch-naturwissenschaftlich-technisches Aufgabenfeld</h5>
+            <table>
+                <thead>
+                <tr>
+                    <th width="60%">Fach</th>
+                    <th>Punkte</th>
+                </tr>
+                </thead>
+                <tbody class="clickTable" table-name="AF3"/>
+            </table>
+            <h5 class="center">Wahlfächer</h5>
+            <table class="margin-bottom-15">
+                <thead>
+                <tr>
+                    <th width="60%">Fach</th>
+                    <th>Punkte</th>
+                </tr>
+                </thead>
+                <tbody class="clickTable" table-name="optional"/>
+            </table>
+            <div id="buttonBar"class="row">
+                <div class="col left">
+                    <button id="button-previous" class="btn waves-effect waves-light" type="submit" name="action">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                </div>
+                <div class="col right">
+                    <button id="button-next" class="btn waves-effect waves-light" type="submit" name="action">
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <footer class="page-footer orange">
+            <div class="footer-copyright">
+                <div class="container">
+                    Copyright © 2017 <a class="orange-text text-lighten-3" href="https://bitphinix.github.io/">BitPhinix (Eric Meier)</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!--  Scripts-->
+<script src="js/libs.min.js"></script>
+<script src="js/page-manager.js"></script>
+<script src="js/certificate-input.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oberstufen-Modul</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <!-- CSS  -->
+    <link href="css/libs.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="content">
+    <div id="header">
+        <nav class="orange darken-2" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="#" class="brand-logo">Setup</a>
+                <ul id="nav-mobile" class="right">
+                    <li id="save" class="hand-cursor"><a class="fa fa-floppy-o fa-2x" download="Profile.omp"></a> </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="orange bg lighten-1"></div>
+    <div id="body" class="container animsition">
+        <div class="card-panel">
+            <h1 class="header center orange-text"\>Ergebnis</h1>
+            <div class="row center">
+                <h5 class="header col s12 light passed-text"></h5>
+            </div>
+            <div id="courseCount" class="card darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title"><i class="fa criteria-icon"></i></span>
+                    <p>Du kannst mindestens 36 Kurse abgerechnen, in denen du insgesamt mindestens 200 Punkte erreicht hast.</p>
+                </div>
+            </div>
+            <div id="underCourse" class="card darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title"><i class="fa criteria-icon"></i></span>
+                    <p>Maximal 20% der abzurechnenden Kurse sind mit weniger als 5 Notenpunkten bewertet worden.</p>
+                </div>
+            </div>
+            <div id="zeroPointCourse" class="card darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title"><i class="fa criteria-icon"></i></span>
+                    <p>Keiner der belegpflichtigen Kurse ist mit 0 Punkten bewertet worden.</p>
+                </div>
+            </div>
+            <div id="abiturMinSum" class="card darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title"><i class="fa criteria-icon"></i></span>
+                    <p>Du hast in deinen 5 Abiturfächern insgesamt mindestens 100 Punkte erreicht</p>
+                </div>
+            </div>
+            <div id="abiturMinScores" class="card darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title"><i class="fa criteria-icon"></i></span>
+                    <p>Du hast in mindestens 3 deiner 5 Abiturfächern mindestens 20 Punkte erreicht.</p>
+                </div>
+            </div>
+            <div id="buttonBar"class="row">
+                <div class="col left">
+                    <button id="button-previous" class="btn waves-effect waves-light" type="submit" name="action">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <footer class="page-footer orange">
+            <div class="footer-copyright">
+                <div class="container">
+                    Copyright © 2017 <a class="orange-text text-lighten-3" href="https://bitphinix.github.io/">BitPhinix (Eric Meier)</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!--  Scripts-->
+<script src="js/libs.min.js"></script>
+<script src="js/page-manager.js"></script>
+<script src="js/abitur-approval.js"></script>
+
+</body>
+</html>
