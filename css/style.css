@@ -90,3 +90,17 @@ button {
     margin: 10px 0px 0px 0px;
     color: lightgray;
 }
+#course-selection-panel th:not(:first-child) {
+    text-align: center;
+}
+#course-selection-panel td:not(:first-child) {
+    height: 30px !important;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+#course-selection-panel td i {
+    height: 30px !important;
+    padding: 0;
+    color: darkgray;
+}

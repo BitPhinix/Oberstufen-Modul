@@ -25,7 +25,7 @@ $(".clickTable").find("tr").find("td").hover(function() {
         index = 5 - length;
 
     parent.prop("selected-index", index);
-    parent.children().slice(index, index + length).html("0");
+    parent.children().slice(index, index + length).html("<i class='fa fa-circle-o fa-2x'></i>");
 }, function() {
     var parent = $(this).parent();
 
@@ -46,7 +46,7 @@ $(document).ready(function () {
             var table = $('.clickTable tr[item-name=' + subject + ']');
             table.prop("clicked", true);
             Object.keys(courseSelection[field][subject]).slice(1).forEach(function (grade, i) {
-                $(table.children()[i + 1]).html(courseSelection[field][subject][grade] ? "X" : "");
+                $(table.children()[i + 1]).html(courseSelection[field][subject][grade] ? "<i class='fa fa-times fa-2x'></i>" : "");
             });
         });
     });
@@ -80,7 +80,7 @@ $(".clickTable").find('tr').click(function() {
             if(isNaN(length))
                 length = 4;
 
-            tr.children().slice(index, index + length).html("X");
+            tr.children().slice(index, index + length).html("<i class='fa fa-times fa-2x'></i>");
         }
     }
     else
@@ -152,7 +152,7 @@ function tableToObj(table) {
         obj["description"] = $(this).children().first().html();
 
         $(this).children().slice(1).each(function (index) {
-            obj[getGrade(index)] = $(this).html() === "X";
+            obj[getGrade(index)] = $(this).children().first().hasClass("fa-times");
         });
 
         if(jQuery.inArray(true, Object.values(obj)) !== -1)
