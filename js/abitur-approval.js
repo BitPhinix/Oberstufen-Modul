@@ -2,14 +2,13 @@ var votedSubjectResults = getVotedSubjectResults();
 var abiturResults = JSON.parse(Cookies.get("AbiturResults"));
 var forceVotedSubjects = getForceVotedSubjects();
 var optionalSubjects = getOptionalSubjects();
+var elected = smartElect();
 
 $(document).ready(function () {
-    var elected = smartElect();
-
     var result = {
-        "courseCount": getCourseCounts(elected) >= 36 && getPointCounts(elected) >= 200,
-        "underCourse": getArrayMaxValCount(getCoursePointsArray(elected), 5) <= 7,
-        "zeroPointCourse": getArrayMaxValCount(getCoursePointsArray(elected), 1) < 1,
+        "courseCount": elected.length >= 40 && getCourseDataMarkSum(elected) / elected.length >= 5,
+        "underCourse": getCourseDataMaxMarkCount(elected, 5) <= 7,
+        "zeroPointCourse": getCourseDataMaxMarkCount(elected, 1) < 1,
         "abiturMinSum": getArraySum(Object.values(abiturResults)) * 4 >= 100,
         "abiturMinScores": getArrayMaxValCount(Object.values(abiturResults), 5) < 3
     };
@@ -20,88 +19,63 @@ $(document).ready(function () {
     $(".passed-text").html(passed ? "Herzlichen Glückwunsch ! Du hast das Abitur bestanden." : "Leider hast du das Abitur nicht bestanden :(")
 });
 
-function getCoursePointsArray(array) {
-    var result = [];
-    array.forEach(function (t) { result = result.concat(votedSubjectResults[t]); });
-    return result;
-}
-
 function smartElect() {
-    var elected = forceVotedSubjects.slice(0);
-    var subjectData = optionalSubjects.slice(0).sort().reverse();
+    //Works like a charm ^^
+    var elected = getSubjectCourseDatas(forceVotedSubjects.slice(0));
+    var courseDatas = sortCourseDatas(getSubjectCourseDatas(optionalSubjects));
 
-    //Smart elect
-    var underCourseCount = getArrayMaxValCount(elected, 5);
-    var courseCount = getCourseCounts(elected);
+    for (i = 0; i < courseDatas.length; i++)
+    {
+        var course = courseDatas[i];
 
-    for (i = 0; i < subjectData.length; i++) {
-        if(courseCount >= 36)
+        if(courseCount >= 36 && course["mark"] <= getCourseDataMarkAvg(elected))
             return elected;
 
-        if(underCourseCount + getArrayMaxValCount(votedSubjectResults[subjectData[i]], 5) > 7)
-            continue;
-
-        elected.push(subjectData[i]);
-        courseCount += getCourseCount(subjectData[i]);
-    }
-
-    subjectData = subjectData.filter(function (t) { return !inArray(t, elected)});
-
-    for (i = 0; i < subjectData.length; i++) {
-        if(courseCount >= 36)
-            return elected;
-
-        elected.push(subjectData[i]);
-        courseCount += getCourseCount(subjectData[i]);
+        elected.push(course);
     }
 
     return elected;
 }
 
-function getSubjectData(subject) {
-    return {
-        "subject": subject,
-        "has0": getArrayMaxValCount(votedSubjectResults[subject], 1) !== 0,
-        "underScoreCount": getArrayMaxValCount(votedSubjectResults[subject], 5),
-        "avgScore": getArrayAvg(votedSubjectResults[subject]),
-        "courseCount": getCourseCount(subject)
-    }
-}
-
-function getPointCounts(subjects) {
-    var result = 0;
-    subjects.forEach(function (t) { result += getArraySum(votedSubjectResults[t]); });
+function getSubjectCourseDatas(subjects) {
+    var result = [];
+    subjects.forEach(function (subject) { result = result.concat(getSubjectCourseData(subject)); });
     return result;
 }
 
-function getCourseCount(subject) {
-    return votedSubjectResults[subject].length;
+function getCourseDataMaxMarkCount(courseDatas, value) {
+    return courseDatas.filter(function (t) { return t["mark"] < value; }).length;
 }
 
-function getCourseCounts(subjects) {
+function getCourseDataMarkSum(courseDatas) {
     var result = 0;
-    subjects.forEach(function (t) { result += getCourseCount(t) });
+    courseDatas.forEach(function (courseData) { result += courseData["mark"]; });
     return result;
 }
 
-function sortSubjectData(subjectData) {
-    return subjectData.sort(function (a, b) {
-        if(a["avgScore"] < b["avgScore"])
-            return -1;
-        else if(a["avgScore"] > b["avgScore"])
-            return 1;
-        else
-            return 0;
+function getCourseDataMarkAvg(courseDatas) {
+    return getCourseDataMarkSum(courseDatas) / courseDatas.length;
+}
+
+function sortCourseDatas(courseDatas) {
+    return courseDatas.sort(function (a, b) {
+        return [a["mark"] > b["mark"]] ? -1 : a["mark"] < b["mark"] ? 1 : 0;
     });
 }
 
-function getSelectDatas(subjects) {
+function getSubjectCourseData(subject) {
     var result = [];
 
-    subjects.forEach(function (t) { result.push( {
-            name: subject,
-            avgPoints: getArrayAvg(votedSubjectResults[subject])
-    })});
+    votedSubjectResults[subject].forEach(function (mark, i) { result.push({
+            "subject": subject,
+            "gradeId": i,
+            "mark": parseInt(mark)
+        });
+    });
+
+    //Will be voted double
+    if(subject === "PF")
+        result = result.concat(result);
 
     return result;
 }
@@ -132,10 +106,6 @@ function isVoted(subject) {
     return inArray(subject, Object.keys(votedSubjectResults));
 }
 
-function isAbiturVoted(subject) {
-    return inArray(subject, Object.keys(abiturResults));
-}
-
 function inArray(value, array) {
     return jQuery.inArray(value, array) !== -1;
 }
@@ -153,24 +123,11 @@ function markCard(card, passed) {
     }
 }
 
-function getSubjectType (name) {
-    var coreNames = ["D", "M", "GGK", "EV", "ETH", "RK", "PF", "FR"];
-
-    if(jQuery.inArray(name, coreNames) !== -1)
-        return "core";
-    else
-        return "optional";
-}
-
 function getArraySum(array){
     if(array.length < 1)
         return 0;
 
     return array.reduce(function(a, b) { return parseInt(a) + parseInt(b); }, 0);
-}
-
-function getArrayAvg(array) {
-    return getArraySum(array) / array.length;
 }
 
 function getArrayMaxValCount(array, value) {
@@ -195,8 +152,4 @@ function getVotedSubjectResults() {
     });
 
     return result;
-}
-
-function save() {
-
 }
