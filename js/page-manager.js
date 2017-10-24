@@ -5,7 +5,7 @@ var reverseAnimsition = Cookies.get("reverseAnimsition");
 var preventExit = true;
 
 $(".animsition").animsition({
-    inClass: 'fade-in-' + (typeof reverseAnimsition === 'undefined' ? "left" : "right")
+    inClass: 'fade-in-' + (typeof reverseAnimsition === 'undefined' ? "right" : "left")
 });
 
 $(window).on('beforeunload', function() {
@@ -62,7 +62,7 @@ function nextPage() {
     currentPageId++;
     Cookies.set("CurrentPageId", currentPageId);
 
-    $(".animsition").attr("data-animsition-out-class", "fade-out-right");
+    $(".animsition").attr("data-animsition-out-class", "fade-out-left");
     $('.animsition').animsition('out', $('.animsition').first(), pages[currentPageId]);
 }
 
@@ -77,6 +77,6 @@ function previousPage() {
 
     Cookies.set("reverseAnimsition", true);
 
-    $(".animsition").attr("data-animsition-out-class", "fade-out-left");
+    $(".animsition").attr("data-animsition-out-class", "fade-out-right");
     $('.animsition').animsition('out', $('.animsition').first(), pages[currentPageId]);
 }
