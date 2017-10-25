@@ -31,7 +31,15 @@ function save() {
     var result = {};
 
     $(".clickTable tr").each(function () {
-        result[$(this).attr("item-name")] = $(this).find("input").first().val();
+
+        var result = parseInt($(this).find("input").first().val());
+        var vocal = parseInt($(this).find("input").last().val());
+
+        if(!isNaN(vocal))
+            result = (result * 2 + vocal) / 3;
+
+        result[$(this).attr("item-name")] = result;
+
     });
 
     Cookies.set("AbiturResults", JSON.stringify(result));
@@ -43,7 +51,12 @@ function addRow(desc, subject) {
     if(abiturResults != null && !isNaN(abiturResults[subject]))
         value = abiturResults[subject];
 
-    $(".clickTable").first().append("<tr class='no-margin' item-name='" + subject + "'><td>" + desc + "</td><td>" + getDescription(subject) + "</td><td><input value='" + value + "' class='validate' type='number' min='0' max='15' required></td><tr>");
+    $(".clickTable").first().append("<tr class='no-margin' item-name='" + subject + "'>" +
+        "<td>" + desc + "</td>" +
+        "<td>" + getDescription(subject) + "</td>" +
+        "<td><input value='" + value + "' class='validate required' type='number' min='0' max='15' required></td>" +
+        "<td><input value='" + value + "' class='validate required' type='number' min='0' max='15'></td>" +
+        "<tr>");
 }
 
 function getDescription(subject) {
