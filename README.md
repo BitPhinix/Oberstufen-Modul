@@ -7,7 +7,7 @@ Dieses Tool ist innerhalb weniger Tage erstellt worden und hat noch eine Bugs. D
 # Bugs melden
 Bugs und Ideen kannst du mir [hier](https://github.com/BitPhinix/Oberstufen-Modul/issues) melden / mitteilen. Wenn du keinen Github-Account hast kannst du auch über meine [Webseite](https://bitphinix.github.io/) mit mir in Kontakt treten.
 
-# Verwendte Libs
+# Verwendete Libs
 * [Materialize v0.100.2](http://materializecss.com/)
 * [Animsition v4.0.2](https://github.com/blivesta/animsition)
 * [JavaScript Cookie v2.1.4](https://github.com/js-cookie/js-cookie)
