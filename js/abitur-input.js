@@ -8,8 +8,10 @@ $(document).ready(function () {
         abiturResults = JSON.parse(abiturResults);
 
     Object.keys(abiturSelection).forEach(function (key) {
-        addRow(key, abiturSelection[key]);
+        addRow(key);
     });
+
+    $("tr:empty").remove();
 });
 
 $("#button-next").click(function () {
@@ -29,34 +31,44 @@ $("#button-next").click(function () {
 
 function save() {
     var result = {};
+    result["combined"] = {};
+    result["written"] = {};
+    result["vocal"] = {};
 
     $(".clickTable tr").each(function () {
         var written = parseInt($(this).find("input").first().val());
         var vocal = parseInt($(this).find("input").last().val());
-        
-        if(!isNaN(vocal))
-            written = (written * 2 + vocal) / 3;
+        var combined = written;
+        var name = $(this).attr("item-name");
 
-        result[$(this).attr("item-name")] = written;
+        if(!isNaN(vocal))
+            combined = (written * 2 + vocal) / 3;
+
+        result["combined"][name] = combined;
+        result["written"][name] = written;
+        result["vocal"][name] = vocal;
     });
 
     Cookies.set("AbiturResults", JSON.stringify(result));
 }
 
-function addRow(desc, subject) {
-    value = "";
+function addRow(key) {
+    var written = "";
+    var vocal = "";
+    var subject = abiturSelection[key];
 
-    if(abiturResults != null && !isNaN(abiturResults[subject]))
-        value = abiturResults[subject];
+    if(abiturResults != null && abiturResults["written"][subject] != null)
+        written = abiturResults["written"][subject];
+
+    if(abiturResults != null && abiturResults["vocal"][subject] != null)
+        vocal = abiturResults["vocal"][subject];
 
     $(".clickTable").first().append("<tr class='no-margin' item-name='" + subject + "'>" +
-        "<td>" + desc + "</td>" +
+        "<td>" + key + "</td>" +
         "<td>" + getDescription(subject) + "</td>" +
-        "<td><input value='" + value + "' class='validate required' type='number' min='0' max='15' required></td>" +
-        "<td><input value='' class='validate required' type='number' min='0' max='15'></td>" +
+        "<td><input value='" + written + "' class='validate required' type='number' min='0' max='15' required></td>" +
+        "<td><input value='" + vocal + "' class='validate required' type='number' min='0' max='15'></td>" +
         "<tr>");
-
-    $(".clickTable").first().children().last().remove();
 }
 
 function getDescription(subject) {

@@ -1,5 +1,5 @@
 var votedSubjectResults = getVotedSubjectResults();
-var abiturResults = JSON.parse(Cookies.get("AbiturResults"));
+var abiturResults = JSON.parse(Cookies.get("AbiturResults"))["combined"];
 var forceVotedSubjects = getForceVotedSubjects();
 var optionalSubjects = getOptionalSubjects();
 var elected = smartElect();
@@ -153,3 +153,5 @@ function getVotedSubjectResults() {
 
     return result;
 }
+
+function save() {}

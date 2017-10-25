@@ -67,6 +67,8 @@ function nextPage() {
 }
 
 function previousPage() {
+    save();
+
     preventExit = false;
 
     if(currentPageId === 0)
