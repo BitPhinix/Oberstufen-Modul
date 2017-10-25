@@ -23,7 +23,7 @@ $("#button-next").click(function () {
         Materialize.toast("Fülle alle Felder korrekt aus!", 4000);
     else {
         save();
-        //nextPage();
+        nextPage();
     }
 });
 
@@ -40,7 +40,6 @@ function save() {
         result[$(this).attr("item-name")] = written;
     });
 
-    alert(JSON.stringify(result));
     Cookies.set("AbiturResults", JSON.stringify(result));
 }
 
