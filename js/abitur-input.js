@@ -23,7 +23,7 @@ $("#button-next").click(function () {
         Materialize.toast("Fülle alle Felder korrekt aus!", 4000);
     else {
         save();
-        nextPage();
+        //nextPage();
     }
 });
 
@@ -31,17 +31,16 @@ function save() {
     var result = {};
 
     $(".clickTable tr").each(function () {
-
-        var result = parseInt($(this).find("input").first().val());
+        var written = parseInt($(this).find("input").first().val());
         var vocal = parseInt($(this).find("input").last().val());
-
+        
         if(!isNaN(vocal))
-            result = (result * 2 + vocal) / 3;
+            written = (written * 2 + vocal) / 3;
 
-        result[$(this).attr("item-name")] = result;
-
+        result[$(this).attr("item-name")] = written;
     });
 
+    alert(JSON.stringify(result));
     Cookies.set("AbiturResults", JSON.stringify(result));
 }
 
@@ -55,8 +54,10 @@ function addRow(desc, subject) {
         "<td>" + desc + "</td>" +
         "<td>" + getDescription(subject) + "</td>" +
         "<td><input value='" + value + "' class='validate required' type='number' min='0' max='15' required></td>" +
-        "<td><input value='" + value + "' class='validate required' type='number' min='0' max='15'></td>" +
+        "<td><input value='' class='validate required' type='number' min='0' max='15'></td>" +
         "<tr>");
+
+    $(".clickTable").first().children().last().remove();
 }
 
 function getDescription(subject) {
