@@ -28,7 +28,7 @@ function smartElect() {
     {
         var course = courseDatas[i];
 
-        if(courseCount >= 36 && course["mark"] <= getCourseDataMarkAvg(elected))
+        if(elected.length >= 36 && course["mark"] <= getCourseDataMarkAvg(elected))
             return elected;
 
         elected.push(course);
@@ -92,7 +92,6 @@ function getForceVotedSubjects() {
 }
 
 function getOptionalSubjects() {
-    //TODO !inArray ?
     return forceVotedSubjects.filter(function (subject) { return inArray(subject, forceVotedSubjects); });
 }
 
