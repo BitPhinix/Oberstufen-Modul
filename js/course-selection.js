@@ -149,7 +149,7 @@ function tableToObj(table) {
 
     table.children().each(function (row) {
         var obj = {};
-        obj["description"] = $(this).children().first().html();
+        obj["description"] = $(this).children().first().html().replace(new RegExp(" \\((?!ev|rk).*\\)"), "");
 
         $(this).children().slice(1).each(function (index) {
             obj[getGrade(index)] = $(this).children().first().hasClass("fa-times");
@@ -158,6 +158,8 @@ function tableToObj(table) {
         if(jQuery.inArray(true, Object.values(obj)) !== -1)
             data[$(this).attr("item-name")] = obj;
     });
+
+    console.log(data);
 
     return data;
 }
