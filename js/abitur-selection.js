@@ -4,7 +4,7 @@ var abiturSelection = Cookies.get("AbiturSelection");
 var voteAble = {
     "3" : ["D", "SP", "EA"],
     "4" : ["D", "SP", "EA", "PH", "CH", "GGK", "RK", "EV", "ETH"],
-    "5" : ["D", "SP", "EA", "PH", "CH", "GGK", "RK", "EV", "ETH", "CTM", "CTI", "MUT", "SAF2", "SAF3", "S"]
+    "5" : ["D", "SP", "EA", "PH", "CH", "GGK", "RK", "EV", "ETH", "CTM", "CTI", "MUT", "SAF2", "SAF3", "S", "FR"]
 };
 
 $(document).ready(function () {

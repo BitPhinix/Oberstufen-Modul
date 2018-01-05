@@ -7,7 +7,7 @@ var elected = smartElect();
 $(document).ready(function () {
     var result = {
         "courseCount": elected.length >= 40 && getCourseDataMarkSum(elected) / elected.length >= 5,
-        "underCourse": getCourseDataMaxMarkCount(elected, 5) <= 7,
+        "underCourse": (getCourseDataMaxMarkCount(elected, 5) - getUnderCourseCount("PF") / 2) <= 7,
         "zeroPointCourse": getCourseDataMaxMarkCount(elected, 1) < 1,
         "abiturMinSum": getArraySum(Object.values(abiturResults)) * 4 >= 100,
         "abiturMinScores": getArrayMaxValCount(Object.values(abiturResults), 5) < 3
@@ -35,6 +35,18 @@ function smartElect() {
     }
 
     return elected;
+}
+
+function getUnderCourseCount(subject) {
+    var data = getSubjectCourseData(subject);
+    var result = 0;
+
+    data.forEach(function (value) {
+       if(value["mark"] < 5)
+           result++;
+    });
+
+    return result;
 }
 
 function getSubjectCourseDatas(subjects) {
